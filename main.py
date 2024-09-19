@@ -115,3 +115,65 @@ tv1.definir_canal(canais4)
 tv1.mostrar_informacoes()
 
 
+#####################################################################################################
+Trabalho para fazer
+from datetime import datetime,timedelta
+
+
+class Caminhao:
+    def __init__(self, modelo, placa):
+        self.modelo = modelo
+        self.placa = placa
+        self.capacidade_carga = 0
+        self.motorista = None
+
+
+
+    def carregar_peso(self):
+       if self.capacidade_carga == 600:
+        print("O caminhão está cheio!")
+       else:
+        print("O caminhão está com a quantidade de carga dentro do limite,poderá prosseguir!")
+
+
+    def descarregar_peso(self):
+      if self.capacidade_carga == 500:
+       print("Você chegou no destino,pode descarregar a carga!")
+
+    def associar_caminhoneiro(self, nome):
+        self.motorista = nome
+
+    def mostrar_informacoes(self):
+      info = f'Marca: {self.modelo}, Placa: {self.placa}, Carga atual: {self.capacidade_carga}'
+
+
+
+class Motorista:
+    def __init__(self, nome, idade, CNH, data_validade):
+        self.nome = nome
+        self.idade = idade
+        self.CNH = CNH
+        self.data_validade = data_validade
+
+    def dirigir_caminhao(self):
+      self.estado_caminhao = 'Dirigindo'
+      print(f"O motorista {self.nome} está dirigindo o caminhão!")
+
+
+#def validar_cnh(data_emissao: str) -> bool:
+     # try:
+      #  data_emissao = datetime.strptime(data_emissao, '%d/%m/%Y')
+      #except ValueError:
+      #  return False
+      #data_validade = data_emissao + timedelta(days=5 * 365)
+     # return datetime.now() <= data_validade
+
+#data_emissao = "20/09/2024"
+
+#if validar_cnh(data_emissao):
+ #print("A CNH é válido")
+#else:
+ #print("A CNH está vencida")
+
+caminhao1 = Caminhao('Volvo', 'Fx')
+caminhao1.mostrar_informacoes()
