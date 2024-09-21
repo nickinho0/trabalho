@@ -1,58 +1,4 @@
-class AnimalEstimacao:
-    def __init__(self, nome, especie, idade):
-     self.nome = nome
-     self.especie = especie
-     self.idade = idade
-     self.estado = 'Dormindo'
-
-    def comer(self):
-     self.estado = 'Comendo'
-     print(f"O {self.nome} está comendo!")
-
-    def dormir(self):
-     self.estado = 'Dormindo'
-     print(f"O {self.nome} continua dormindo!")
-
-    def brincar(self):
-     self.estado = 'Brincando'
-     print(f"O {self.nome} está brincando!")
-
-    def listar(self):
-     return (f"Nome: {self.nome}, Espécie: {self.especie}, Idade: {self.idade}, Estado: {self.estado}")
-
-    def latir(self):
-      if self.especie.lower == 'cachorro':
-       self.estado = 'Latindo'
-       print(f"O {self.especie} chamado {self.nome} está latindo!")
-      else:
-        print("Ops!,você digitou errado,gatos não latem!")
-
-    def miar(self):
-      if self.especie.lower == 'gato':
-       self.estado = 'Miando'
-       print(f"O {self.especie} chamado {self.nome} está miando!")
-      else:
-          print("Ops!,você digitou errado,cachorros não miam!")
-
-    def nadar(self):
-      if self.especie.lower == 'peixe':
-       self.estado = 'Nadando'
-       print(f"O {self.especie} chamado {self.nome} está nadando!")
-      else:
-          print("Ops!,você digitou errado,cachorros e gatos não respiram embaixo d´água!")
-
-
-
-animal1 = AnimalEstimacao('Duque', 'cachorro', 5)
-animal2 = AnimalEstimacao('Théo', 'gato', 3)
-animal3 = AnimalEstimacao('Garry', 'peixe', 2)
-
-print(animal1.listar())
-print(animal2.listar())
-print(animal3.listar())
-
-
-#####################################################################################################
+####################################################################################################
 
 
 MOSTRAR TRABALHO SOR:
@@ -116,25 +62,21 @@ tv1.mostrar_informacoes()
 
 
 #####################################################################################################
-Trabalho para fazer
-from datetime import datetime,timedelta
+from sys import int_info
 
 
 class Caminhao:
-    def __init__(self, modelo, placa):
+    def __init__(self, modelo, placa, capacidade_carga):
         self.modelo = modelo
         self.placa = placa
-        self.capacidade_carga = 0
+        self.capacidade_carga = capacidade_carga
         self.motorista = None
 
-
-
     def carregar_peso(self):
-       if self.capacidade_carga == 600:
+       if self.capacidade_carga == 1000:
         print("O caminhão está cheio!")
        else:
         print("O caminhão está com a quantidade de carga dentro do limite,poderá prosseguir!")
-
 
     def descarregar_peso(self):
       if self.capacidade_carga == 500:
@@ -144,7 +86,13 @@ class Caminhao:
         self.motorista = nome
 
     def mostrar_informacoes(self):
-      info = f'Marca: {self.modelo}, Placa: {self.placa}, Carga atual: {self.capacidade_carga}'
+        info = (f"\nModelo: {self.modelo}"
+                f"\nPlaca: {self.placa}")
+        if self.motorista:
+            info += f", \nProprietário: {self.motorista.nome}"
+            info += f' \nIdade: {self.motorista.idade}'
+            info += f'\nSituação do CNH: {self.motorista.verificar_cnh()}'
+        print(info)
 
 
 
@@ -156,24 +104,46 @@ class Motorista:
         self.data_validade = data_validade
 
     def dirigir_caminhao(self):
-      self.estado_caminhao = 'Dirigindo'
-      print(f"O motorista {self.nome} está dirigindo o caminhão!")
+        info = f'{self.nome} está dirigindo o caminhão'   
+        print(info)
+        
+    def frear_caminhao(self):
+        info = f'{self.nome} está freando o caminhão!'
+        print(info)
+
+    def verificar_cnh(motorista):
+     from datetime import datetime, timedelta
+     data_validade = '2030-09-21'
+     format = ("%Y-%m-%d")
+     data_validade_dt = datetime.strptime(data_validade, format)
+
+     hoje = datetime.now()
+
+     if data_validade_dt < hoje:
+            status = "vencida"
+     elif data_validade_dt <= hoje + timedelta(days=30):
+            status = "para vencer"
+     else:
+            status = "válida"
+
+     if motorista  and (status == "vencida" or status == "para vencer"):
+            return f"A CNH está {status}. É necessário renovar a CNH."
+     else:
+            return f"A carteira está válida e em dia!!"
 
 
-#def validar_cnh(data_emissao: str) -> bool:
-     # try:
-      #  data_emissao = datetime.strptime(data_emissao, '%d/%m/%Y')
-      #except ValueError:
-      #  return False
-      #data_validade = data_emissao + timedelta(days=5 * 365)
-     # return datetime.now() <= data_validade
 
-#data_emissao = "20/09/2024"
 
-#if validar_cnh(data_emissao):
- #print("A CNH é válido")
-#else:
- #print("A CNH está vencida")
 
-caminhao1 = Caminhao('Volvo', 'Fx')
+
+
+caminhao1=Caminhao('Volvo FH', 'IHQ-1516', 500)
+caminhao2=Caminhao('Volvo FMX', 'IQJ-7293', 1000)
+caminhoneiro1=Motorista('Nickolas Leal Martins', 20, '42593965660', '20/09/2022')
+caminhoneiro2=Motorista('James Duarte', 50, '95091643468', '20/09/2030')
+caminhao1.associar_caminhoneiro(caminhoneiro1)
 caminhao1.mostrar_informacoes()
+caminhao1.motorista.estado_caminhao()
+caminhao2.associar_caminhoneiro(caminhoneiro2)
+caminhao2.mostrar_informacoes()
+caminhao2.motorista.estado_caminhao()
